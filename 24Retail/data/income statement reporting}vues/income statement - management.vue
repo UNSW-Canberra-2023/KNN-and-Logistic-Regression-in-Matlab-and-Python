@@ -1,0 +1,52 @@
+﻿389,100
+390,Income Statement - Management
+370,0
+361,1
+362,1
+363,0
+364,0
+365,
+366,
+367,0
+376,1
+375,c:0.00
+374,4
+7,Year
+6,Default
+7,Currency Calc
+6,All Members
+7,Account
+6,Default
+7,Version
+6,Current
+360,1
+7,Month
+6,QY
+371,1
+7,Organization Reporting
+6,Default
+373,4
+2
+1
+11
+1
+372,0
+372,00
+384,0
+385,0
+377,4
+34
+168
+1070
+900
+378,0
+382,255
+379,6
+0
+0
+0
+0
+0
+0
+11,20121019190315
+381,0

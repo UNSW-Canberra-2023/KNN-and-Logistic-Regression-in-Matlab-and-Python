@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCubeCalculation xmlns="http://www.ibm.com/dimensioncalculation.xsd" CubeId="_BAK_Depreciation" Version="1.0"><XMLDimensionCalculation DimensionId="Year"/><XMLDimensionCalculation DimensionId="organization"/><XMLDimensionCalculation DimensionId="Asset Types"/><XMLDimensionCalculation DimensionId="Month"/><XMLDimensionCalculation DimensionId="Version"><XMLMemberCalculation MemberId="[Version].[V3]"><NumericRules>###Version Calculation
+['Version':{'V3'}]=IF(ATTRN('Depreciation', !Depreciation, 'signswitch')=1 , 
+['Version':'Version 2']-['Version':'Version 1'], 
+['Version':'Version 1']-['Version':'Version 2']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Version].[V4]"><NumericRules>###Version Calculation
+['Version':{'V4'}]=IF(ATTRN('Depreciation', !Depreciation, 'signswitch')=1 , 
+((['Version':'Version 2']-['Version':'Version 1'])\['Version':'Version 1'])*100, 
+((['Version':'Version 1']-['Version':'Version 2'])\['Version':'Version 1'])*100);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation></XMLDimensionCalculation><XMLDimensionCalculation DimensionId="Depreciation"><XMLMemberCalculation MemberId="[Depreciation].[YTD Additions]"><NumericRules>##CUMULATE : calculates the cumulative totals in output member cell based on the orginal values in the input member cell
+['Depreciation':{'YTD Additions'}]=N:DB('_BAK_Depreciation', !Year, !organization, !Asset Types, !Month, !Version, 'Additions')+DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ATTRS('Month', !Month, 'previousperiod'), !Version, 'YTD Additions');
+</NumericRules><StringRules></StringRules><ParentRules>##CUMULATE : calculates the cumulative totals in output member cell based on the orginal values in the input member cell
+['Month':{'Year', 'Q1', 'Q2', 'Q3', 'Q4'}, 'Depreciation':{'YTD Additions'}]=C:IF(DIMIX('Month', ATTRS('Month', !Month, 'lastperiod'))&gt;0, 
+DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ATTRS('Month', !Month, 'lastperiod'), !Version, 'YTD Additions'), 
+DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ELCOMP('Month', !Month, ELCOMPN('Month', !Month)), !Version, 'YTD Additions'));
+</ParentRules><XMLMemberFeeder MemberId="[Depreciation].[YTD Additions]"><Feeders>['Depreciation':{'YTD Additions'}]=&gt;DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ATTRS('Month', !Month, 'nextperiod'), !Version, 'YTD Additions');
+</Feeders></XMLMemberFeeder><XMLMemberFeeder MemberId="[Depreciation].[Additions]"><Feeders>['Depreciation':{'Additions'}]=&gt;DB('_BAK_Depreciation', !Year, !organization, !Asset Types, !Month, !Version, 'YTD Additions');
+</Feeders></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Depreciation].[YTD In Service]"><NumericRules>##CUMULATE : calculates the cumulative totals in output member cell based on the orginal values in the input member cell
+['Depreciation':{'YTD In Service'}]=N:DB('_BAK_Depreciation', !Year, !organization, !Asset Types, !Month, !Version, 'In Service')+DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ATTRS('Month', !Month, 'previousperiod'), !Version, 'YTD In Service');
+</NumericRules><StringRules></StringRules><ParentRules>##CUMULATE : calculates the cumulative totals in output member cell based on the orginal values in the input member cell
+['Month':{'Year', 'Q1', 'Q2', 'Q3', 'Q4'}, 'Depreciation':{'YTD In Service'}]=C:IF(DIMIX('Month', ATTRS('Month', !Month, 'lastperiod'))&gt;0, 
+DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ATTRS('Month', !Month, 'lastperiod'), !Version, 'YTD In Service'), 
+DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ELCOMP('Month', !Month, ELCOMPN('Month', !Month)), !Version, 'YTD In Service'));
+</ParentRules><XMLMemberFeeder MemberId="[Depreciation].[YTD In Service]"><Feeders>['Depreciation':{'YTD In Service'}]=&gt;DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ATTRS('Month', !Month, 'nextperiod'), !Version, 'YTD In Service');
+</Feeders></XMLMemberFeeder><XMLMemberFeeder MemberId="[Depreciation].[In Service]"><Feeders>['Depreciation':{'In Service'}]=&gt;DB('_BAK_Depreciation', !Year, !organization, !Asset Types, !Month, !Version, 'YTD In Service');
+</Feeders></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Depreciation].[Cost End Bal]"><NumericRules>['Depreciation':{'Cost End Bal'}]=N:((['Depreciation':'Cost Beg Bal']+['Depreciation':'In Service'])+['Depreciation':'In Service']);
+</NumericRules><StringRules></StringRules><ParentRules>['Month':{'Year', 'Q1', 'Q2', 'Q3', 'Q4'}, 'Depreciation':{'Cost End Bal'}]=C:IF(DIMIX('Month', ATTRS('Month', !Month, 'lastperiod'))&gt;0, 
+DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ATTRS('Month', !Month, 'lastperiod'), !Version, 'Cost End Bal'), 
+DB('_BAK_Depreciation', !Year, !organization, !Asset Types, ELCOMP('Month', !Month, ELCOMPN('Month', !Month)), !Version, 'Cost End Bal'));
+</ParentRules><XMLMemberFeeder MemberId="[Depreciation].[Cost Beg Bal]"><Feeders>['Depreciation':{'Cost Beg Bal'}]=&gt;['Depreciation':'Cost End Bal'];
+</Feeders><Comment>##Feeder for Cost Beg Bal to Cost End Bal
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Depreciation].[In Service]"><Feeders>['Depreciation':{'In Service'}]=&gt;['Depreciation':'Cost End Bal'];
+</Feeders><Comment>##Feeder for In Service to Cost End Bal
+</Comment></XMLMemberFeeder></XMLMemberCalculation></XMLDimensionCalculation></XMLCubeCalculation>

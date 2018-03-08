@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Compensation" TargetCube="Employee" FeedersCube="Compensation" LinkId="}Link_Emp_3AComp"><NumericRules>['Employee':'Total Cost'] = N:DB('Compensation', !organization, 
+    !EmployeeList, 'Year', !Year, !Version, 'Total Expense');
+</NumericRules><StringRules></StringRules><Feeders>['Month':'Year', 'Compensation':'Total Expense'] =&gt; DB('Employee', 
+    !organization, !EmployeeList, !Year, !Version, 'Total Cost');
+</Feeders><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

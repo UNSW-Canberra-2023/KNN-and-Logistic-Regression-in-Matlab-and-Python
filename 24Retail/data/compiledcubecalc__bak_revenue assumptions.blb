@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCubeCalculation xmlns="http://www.ibm.com/dimensioncalculation.xsd" CubeId="_BAK_Revenue Assumptions" Version="1.0"><XMLDimensionCalculation DimensionId="Year"/><XMLDimensionCalculation DimensionId="product"/><XMLDimensionCalculation DimensionId="Channel"/><XMLDimensionCalculation DimensionId="Month"/><XMLDimensionCalculation DimensionId="Version"><XMLMemberCalculation MemberId="[Version].[V3]"><NumericRules>###Version Calculation
+['Version':{'V3'}]=IF(ATTRN('RevenueAsmpt', !RevenueAsmpt, 'signswitch')=1 , 
+['Version':'Version 2']-['Version':'Version 1'], 
+['Version':'Version 1']-['Version':'Version 2']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Version].[V4]"><NumericRules>###Version Calculation
+['Version':{'V4'}]=IF(ATTRN('RevenueAsmpt', !RevenueAsmpt, 'signswitch')=1 , 
+((['Version':'Version 2']-['Version':'Version 1'])\['Version':'Version 1'])*100, 
+((['Version':'Version 1']-['Version':'Version 2'])\['Version':'Version 1'])*100);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation></XMLDimensionCalculation><XMLDimensionCalculation DimensionId="RevenueAsmpt"><XMLMemberCalculation MemberId="[RevenueAsmpt].[Average Unit Price]"><NumericRules>['RevenueAsmpt':{'Average Unit Price'}]=N:(['RevenueAsmpt':'Unit Price']*(1-(['RevenueAsmpt':'Initiative Discount']\100)));
+</NumericRules><StringRules></StringRules><ParentRules>['RevenueAsmpt':{'Average Unit Price'}]=C:0;
+</ParentRules><XMLMemberFeeder MemberId="[RevenueAsmpt].[Initiative Discount]"><Feeders>['RevenueAsmpt':{'Initiative Discount'}]=&gt;['RevenueAsmpt':'Average Unit Price'];
+</Feeders><Comment>##Feeder for Initiative Discount to Average Unit Price
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[RevenueAsmpt].[Unit Price]"><Feeders>['RevenueAsmpt':{'Unit Price'}]=&gt;['RevenueAsmpt':'Average Unit Price'];
+</Feeders><Comment>##Feeder for Unit Price to Average Unit Price
+</Comment></XMLMemberFeeder></XMLMemberCalculation></XMLDimensionCalculation></XMLCubeCalculation>

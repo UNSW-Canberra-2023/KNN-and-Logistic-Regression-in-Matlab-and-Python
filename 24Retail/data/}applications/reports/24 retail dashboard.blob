@@ -1,0 +1,5 @@
+﻿FILE_FORMAT=100
+ENTRYNAME=24 Retail Dashboard
+ENTRYTYPE=blob
+ENTRYREFERENCE=TM1:///blob/PUBLIC/.\}externals\24 Retail Dashboard.xlsx_20161118203858.xlsx
+REMOVEBLOBONDELETE=Yes

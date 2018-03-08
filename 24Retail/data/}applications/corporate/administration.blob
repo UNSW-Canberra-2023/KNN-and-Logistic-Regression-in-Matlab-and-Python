@@ -1,0 +1,5 @@
+﻿FILE_FORMAT=100
+ENTRYNAME=Administration
+ENTRYTYPE=blob
+ENTRYREFERENCE=TM1:///blob/PUBLIC/.\}externals\Administration.xlsm_20130828062815.xlsm
+REMOVEBLOBONDELETE=Yes

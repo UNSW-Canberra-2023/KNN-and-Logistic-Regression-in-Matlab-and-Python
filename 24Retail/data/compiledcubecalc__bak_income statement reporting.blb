@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCubeCalculation xmlns="http://www.ibm.com/dimensioncalculation.xsd" CubeId="_BAK_Income Statement Reporting" Version="1.0"><XMLDimensionCalculation DimensionId="Currency Calc"/><XMLDimensionCalculation DimensionId="Organization Reporting"/><XMLDimensionCalculation DimensionId="Year"/><XMLDimensionCalculation DimensionId="Month"/><XMLDimensionCalculation DimensionId="Month Reporting"/><XMLDimensionCalculation DimensionId="Account"><XMLMemberCalculation MemberId="[Account].[FTE]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Account':{'FTE'}, 'Month Reporting':{'Year', 'YTD', 'Q1', 'Q2', 'Q3', 'Q4', 'Jan YTD', 'Feb YTD', 'Mar YTD', 'Apr YTD', 'May YTD', 'Jun YTD', 'Jul YTD', 'Aug YTD', 'Oct YTD', 'Nov YTD', 'Dec YTD', 'Sep YTD'}]=C:IF(DIMIX('Month Reporting', ATTRS('Month Reporting', !Month Reporting, 'lastperiod'))&gt;0, 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ATTRS('Month Reporting', !Month Reporting, 'lastperiod'), 'FTE', !Version, !Account Reporting), 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ELCOMP('Month Reporting', !Month Reporting, ELCOMPN('Month Reporting', !Month Reporting)), 'FTE', !Version, !Account Reporting));
+</ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account].[Rev per FTE]"><NumericRules>['Account':'Rev per FTE']=N:(['Account':'4999']\['Account':'FTE']);
+</NumericRules><StringRules></StringRules><ParentRules>['Account':'Rev per FTE']=C:(['Account':'4999']\['Account':'FTE']);
+</ParentRules><XMLMemberFeeder MemberId="[Account].[FTE]"><Feeders>['Account':{'FTE'}]=&gt;['Account':'Rev per FTE'];
+</Feeders><Comment>##Feeder for FTE to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[4999]"><Feeders>['Account':{'4999'}]=&gt;['Account':'Rev per FTE'];
+</Feeders><Comment>##Feeder for 4999 to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[FTE]"><Feeders>['Account':{'FTE'}]=&gt;['Account':'Rev per FTE'];
+</Feeders><Comment>##Feeder for FTE to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[4999]"><Feeders>['Account':{'4999'}]=&gt;['Account':'Rev per FTE'];
+</Feeders><Comment>##Feeder for 4999 to Rev per FTE
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account].[Cost per FTE]"><NumericRules>['Account':'Cost per FTE']=N:(['Account':'TE']\['Account':'FTE']);
+</NumericRules><StringRules></StringRules><ParentRules>['Account':'Cost per FTE']=C:(['Account':'TE']\['Account':'FTE']);
+</ParentRules><XMLMemberFeeder MemberId="[Account].[FTE]"><Feeders>['Account':{'FTE'}]=&gt;['Account':'Cost per FTE'];
+</Feeders><Comment>##Feeder for FTE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[TE]"><Feeders>['Account':{'TE'}]=&gt;['Account':'Cost per FTE'];
+</Feeders><Comment>##Feeder for TE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[FTE]"><Feeders>['Account':{'FTE'}]=&gt;['Account':'Cost per FTE'];
+</Feeders><Comment>##Feeder for FTE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[TE]"><Feeders>['Account':{'TE'}]=&gt;['Account':'Cost per FTE'];
+</Feeders><Comment>##Feeder for TE to Cost per FTE
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account].[Square Footage]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Account':{'Square Footage'}, 'Month Reporting':{'Year', 'YTD', 'Q1', 'Q2', 'Q3', 'Q4', 'Jan YTD', 'Feb YTD', 'Mar YTD', 'Apr YTD', 'May YTD', 'Jun YTD', 'Jul YTD', 'Aug YTD', 'Oct YTD', 'Nov YTD', 'Dec YTD', 'Sep YTD'}]=C:IF(DIMIX('Month Reporting', ATTRS('Month Reporting', !Month Reporting, 'lastperiod'))&gt;0, 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ATTRS('Month Reporting', !Month Reporting, 'lastperiod'), 'Square Footage', !Version, !Account Reporting), 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ELCOMP('Month Reporting', !Month Reporting, ELCOMPN('Month Reporting', !Month Reporting)), 'Square Footage', !Version, !Account Reporting));
+</ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account].[Server Space]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Account':{'Server Space'}, 'Month Reporting':{'Year', 'YTD', 'Q1', 'Q2', 'Q3', 'Q4', 'Jan YTD', 'Feb YTD', 'Mar YTD', 'Apr YTD', 'May YTD', 'Jun YTD', 'Jul YTD', 'Aug YTD', 'Oct YTD', 'Nov YTD', 'Dec YTD', 'Sep YTD'}]=C:IF(DIMIX('Month Reporting', ATTRS('Month Reporting', !Month Reporting, 'lastperiod'))&gt;0, 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ATTRS('Month Reporting', !Month Reporting, 'lastperiod'), 'Server Space', !Version, !Account Reporting), 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ELCOMP('Month Reporting', !Month Reporting, ELCOMPN('Month Reporting', !Month Reporting)), 'Server Space', !Version, !Account Reporting));
+</ParentRules></XMLMemberCalculation></XMLDimensionCalculation><XMLDimensionCalculation DimensionId="Version"/><XMLDimensionCalculation DimensionId="Account Reporting"><XMLMemberCalculation MemberId="[Account Reporting].[FTE]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Account Reporting':{'FTE'}, 'Month Reporting':{'Year', 'YTD', 'Q1', 'Q2', 'Q3', 'Q4', 'Jan YTD', 'Feb YTD', 'Mar YTD', 'Apr YTD', 'May YTD', 'Jun YTD', 'Jul YTD', 'Aug YTD', 'Oct YTD', 'Nov YTD', 'Dec YTD', 'Sep YTD'}]=C:IF(DIMIX('Month Reporting', ATTRS('Month Reporting', !Month Reporting, 'lastperiod'))&gt;0, 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ATTRS('Month Reporting', !Month Reporting, 'lastperiod'), !Account, !Version, 'FTE'), 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ELCOMP('Month Reporting', !Month Reporting, ELCOMPN('Month Reporting', !Month Reporting)), !Account, !Version, 'FTE'));
+</ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account Reporting].[Rev per FTE]"><NumericRules>['Account Reporting':'Rev per FTE']=N:(['Account Reporting':'4999']\['Account Reporting':'FTE']);
+</NumericRules><StringRules></StringRules><ParentRules>['Account Reporting':'Rev per FTE']=C:(['Account Reporting':'4999']\['Account Reporting':'FTE']);
+</ParentRules><XMLMemberFeeder MemberId="[Account Reporting].[FTE]"><Feeders>['Account Reporting':{'FTE'}]=&gt;['Account Reporting':'Rev per FTE'];
+</Feeders><Comment>##Feeder for FTE to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account Reporting].[4999]"><Feeders>['Account Reporting':{'4999'}]=&gt;['Account Reporting':'Rev per FTE'];
+</Feeders><Comment>##Feeder for 4999 to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account Reporting].[FTE]"><Feeders>['Account Reporting':{'FTE'}]=&gt;['Account Reporting':'Rev per FTE'];
+</Feeders><Comment>##Feeder for FTE to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account Reporting].[4999]"><Feeders>['Account Reporting':{'4999'}]=&gt;['Account Reporting':'Rev per FTE'];
+</Feeders><Comment>##Feeder for 4999 to Rev per FTE
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account Reporting].[Cost per FTE]"><NumericRules>['Account Reporting':'Cost per FTE']=N:(['Account Reporting':'TE']\['Account Reporting':'FTE']);
+</NumericRules><StringRules></StringRules><ParentRules>['Account Reporting':'Cost per FTE']=C:(['Account Reporting':'TE']\['Account Reporting':'FTE']);
+</ParentRules><XMLMemberFeeder MemberId="[Account Reporting].[FTE]"><Feeders>['Account Reporting':{'FTE'}]=&gt;['Account Reporting':'Cost per FTE'];
+</Feeders><Comment>##Feeder for FTE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account Reporting].[TE]"><Feeders>['Account Reporting':{'TE'}]=&gt;['Account Reporting':'Cost per FTE'];
+</Feeders><Comment>##Feeder for TE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account Reporting].[FTE]"><Feeders>['Account Reporting':{'FTE'}]=&gt;['Account Reporting':'Cost per FTE'];
+</Feeders><Comment>##Feeder for FTE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account Reporting].[TE]"><Feeders>['Account Reporting':{'TE'}]=&gt;['Account Reporting':'Cost per FTE'];
+</Feeders><Comment>##Feeder for TE to Cost per FTE
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account Reporting].[Square Footage]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Account Reporting':{'Square Footage'}, 'Month Reporting':{'Year', 'YTD', 'Q1', 'Q2', 'Q3', 'Q4', 'Jan YTD', 'Feb YTD', 'Mar YTD', 'Apr YTD', 'May YTD', 'Jun YTD', 'Jul YTD', 'Aug YTD', 'Oct YTD', 'Nov YTD', 'Dec YTD', 'Sep YTD'}]=C:IF(DIMIX('Month Reporting', ATTRS('Month Reporting', !Month Reporting, 'lastperiod'))&gt;0, 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ATTRS('Month Reporting', !Month Reporting, 'lastperiod'), !Account, !Version, 'Square Footage'), 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ELCOMP('Month Reporting', !Month Reporting, ELCOMPN('Month Reporting', !Month Reporting)), !Account, !Version, 'Square Footage'));
+</ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account Reporting].[Server Space]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Account Reporting':{'Server Space'}, 'Month Reporting':{'Year', 'YTD', 'Q1', 'Q2', 'Q3', 'Q4', 'Jan YTD', 'Feb YTD', 'Mar YTD', 'Apr YTD', 'May YTD', 'Jun YTD', 'Jul YTD', 'Aug YTD', 'Oct YTD', 'Nov YTD', 'Dec YTD', 'Sep YTD'}]=C:IF(DIMIX('Month Reporting', ATTRS('Month Reporting', !Month Reporting, 'lastperiod'))&gt;0, 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ATTRS('Month Reporting', !Month Reporting, 'lastperiod'), !Account, !Version, 'Server Space'), 
+DB('_BAK_Income Statement Reporting', !Currency Calc, !Organization Reporting, !Year, !Month, ELCOMP('Month Reporting', !Month Reporting, ELCOMPN('Month Reporting', !Month Reporting)), !Account, !Version, 'Server Space'));
+</ParentRules></XMLMemberCalculation></XMLDimensionCalculation></XMLCubeCalculation>

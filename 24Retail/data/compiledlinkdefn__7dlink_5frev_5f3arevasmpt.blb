@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Revenue Assumptions" TargetCube="Revenue" FeedersCube="Revenue Assumptions" LinkId="}Link_Rev_3ARevAsmpt"><NumericRules>['Revenue':{'Unit Cost','Unit Price'}] = N:DB('Revenue Assumptions', 
+    !product, !Channel, !Month, !Year, !Version, ATTRS('Revenue', 
+    !Revenue, '}Map_}Link_Rev_3ARevAsmpt'));
+</NumericRules><StringRules></StringRules><Feeders>['RevenueAsmpt':'Unit Cost'] =&gt; DB('Revenue', 'Total Company', 
+    !Channel, !product, !Month, !Year, !Version, 'Unit Cost');
+['RevenueAsmpt':'Unit Price'] =&gt; DB('Revenue', 'Total Company', 
+    !Channel, !product, !Month, !Year, !Version, 'Unit Price');
+</Feeders><XMLHiddenArtifacts DimensionId="Revenue"><HiddenAttributes><XMLHiddenAttributeTable Name="}Map_}Link_Rev_3ARevAsmpt" Type="STRING"><Values member="Unit Cost" value="Unit Cost"/><Values member="Unit Price" value="Unit Price"/></XMLHiddenAttributeTable></HiddenAttributes></XMLHiddenArtifacts><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

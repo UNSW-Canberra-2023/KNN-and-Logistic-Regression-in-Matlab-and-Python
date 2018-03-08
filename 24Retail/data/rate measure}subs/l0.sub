@@ -1,0 +1,40 @@
+﻿283,100
+284,"L0"
+11,20151201005526
+274,Caption
+18,0
+275,56
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [Rate Measure] )}, 0)}
+278,0
+281,0
+270,30
+List Price
+Discount Rate
+National Average BOM
+BOM Averaging Factor
+Total Local BOM
+Raw Material
+RM 1
+RM 2
+RM 3
+RM 8
+Packaging Material
+PM 6
+PM 7
+PM 8
+Direct labor
+Commodities
+Commodity 1
+PM 1
+PM 2
+PM 3
+Commodity 2
+PM 4
+PM 5
+Commodity 3
+RM 6
+RM 4
+RM 5
+RM 7
+Transportation rate
+Average Local BOM

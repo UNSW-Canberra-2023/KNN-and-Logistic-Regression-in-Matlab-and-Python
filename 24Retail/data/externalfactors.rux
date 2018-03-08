@@ -1,0 +1,16 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+['A','Predictive'] = [ 'A','Actual'];
+['Y1','Predictive',{'B','C','D'}] = ['Y1','Actual'];
+['Y2','Predictive',{'B','C','D'}] = IF(ATTRN('Month', !Month, 'Number')<ATTRN('Month', ATTRS('Version',!Version,'FcstMonth'), 'Number'),DB('ExternalFactors', !Year, !Month, 'Actual', !ExternalFactors),STET);
+['A','Predictivev2'] = [ 'A','Actual'];
+['Y1','Predictivev2',{'B','C','D'}] = ['Y1','Actual'];
+['Y2','Predictivev2',{'B','C','D'}] = IF(ATTRN('Month', !Month, 'Number')<ATTRN('Month', ATTRS('Version',!Version,'FcstMonth'), 'Number'),DB('ExternalFactors', !Year, !Month, 'Actual', !ExternalFactors),STET);
+['Y1','ActFor'] = S:'A';
+['Y2','ActFor'] = S: IF(ATTRN('Month', !Month, 'Number')<ATTRN('Month', ATTRS('Version',!Version,'FcstMonth'), 'Number'),'A','F');
+['Y3','ActFor']= S:'F';
+
+

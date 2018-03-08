@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCubeCalculation xmlns="http://www.ibm.com/dimensioncalculation.xsd" CubeId="_BAK_GLTransactions" Version="1.0"><XMLDimensionCalculation DimensionId="TrxID"/><XMLDimensionCalculation DimensionId="organization"/><XMLDimensionCalculation DimensionId="Year"/><XMLDimensionCalculation DimensionId="Month"/><XMLDimensionCalculation DimensionId="TrxMeasures"/><XMLDimensionCalculation DimensionId="Account"><XMLMemberCalculation MemberId="[Account].[FTE]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Month':{'Year', 'Q1', 'Q2', 'Q3', 'Q4'}, 'Account':{'FTE'}]=C:IF(DIMIX('Month', ATTRS('Month', !Month, 'lastperiod'))&gt;0, 
+DB('_BAK_GLTransactions', !TrxID, !organization, !Year, ATTRS('Month', !Month, 'lastperiod'), !TrxMeasures, 'FTE'), 
+DB('_BAK_GLTransactions', !TrxID, !organization, !Year, ELCOMP('Month', !Month, ELCOMPN('Month', !Month)), !TrxMeasures, 'FTE'));
+</ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account].[Rev per FTE]"><NumericRules>['Account':'Rev per FTE']=N:(['Account':'4999']\['Account':'FTE']);
+</NumericRules><StringRules></StringRules><ParentRules>['Account':'Rev per FTE']=C:(['Account':'4999']\['Account':'FTE']);
+</ParentRules><XMLMemberFeeder MemberId="[Account].[FTE]"><Feeders>['Account':{'FTE'}]=&gt;['Account':'Rev per FTE'];
+</Feeders><Comment>##Feeder for FTE to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[4999]"><Feeders>['Account':{'4999'}]=&gt;['Account':'Rev per FTE'];
+</Feeders><Comment>##Feeder for 4999 to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[FTE]"><Feeders>['Account':{'FTE'}]=&gt;['Account':'Rev per FTE'];
+</Feeders><Comment>##Feeder for FTE to Rev per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[4999]"><Feeders>['Account':{'4999'}]=&gt;['Account':'Rev per FTE'];
+</Feeders><Comment>##Feeder for 4999 to Rev per FTE
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Account].[Cost per FTE]"><NumericRules>['Account':'Cost per FTE']=N:(['Account':'TE']\['Account':'FTE']);
+</NumericRules><StringRules></StringRules><ParentRules>['Account':'Cost per FTE']=C:(['Account':'TE']\['Account':'FTE']);
+</ParentRules><XMLMemberFeeder MemberId="[Account].[FTE]"><Feeders>['Account':{'FTE'}]=&gt;['Account':'Cost per FTE'];
+</Feeders><Comment>##Feeder for FTE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[TE]"><Feeders>['Account':{'TE'}]=&gt;['Account':'Cost per FTE'];
+</Feeders><Comment>##Feeder for TE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[FTE]"><Feeders>['Account':{'FTE'}]=&gt;['Account':'Cost per FTE'];
+</Feeders><Comment>##Feeder for FTE to Cost per FTE
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Account].[TE]"><Feeders>['Account':{'TE'}]=&gt;['Account':'Cost per FTE'];
+</Feeders><Comment>##Feeder for TE to Cost per FTE
+</Comment></XMLMemberFeeder></XMLMemberCalculation></XMLDimensionCalculation></XMLCubeCalculation>

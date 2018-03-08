@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Capital" TargetCube="Depreciation" FeedersCube="Capital" LinkId="}Link_Dep_3ACap_Additions"><NumericRules>['Depreciation':'Additions'] = N:(DB('}ICube_}Link_Dep_3ACap_Additions', 
+    !Month, !organization, '1', !Asset Types, !Year, !Version, 
+    'Purchase Cost') + DB('}ICube_}Link_Dep_3ACap_Additions', 
+    !Month, !organization, '2', !Asset Types, !Year, !Version, 
+    'Purchase Cost') + DB('}ICube_}Link_Dep_3ACap_Additions', 
+    !Month, !organization, '3', !Asset Types, !Year, !Version, 
+    'Purchase Cost') + DB('}ICube_}Link_Dep_3ACap_Additions', 
+    !Month, !organization, '4', !Asset Types, !Year, !Version, 
+    'Purchase Cost') + DB('}ICube_}Link_Dep_3ACap_Additions', 
+    !Month, !organization, '5', !Asset Types, !Year, !Version, 
+    'Purchase Cost'));
+</NumericRules><StringRules></StringRules><Feeders>['Capital':'Purchase Period'] =&gt; DB('}ICube_}Link_Dep_3ACap_Additions', 
+    DB('Capital', !organization, !CapitalList, !Asset Types, 
+    !Year, !Version, 'Purchase Period'), !organization, !CapitalList, 
+    !Asset Types, !Year, !Version, 'Purchase Cost');
+</Feeders><IntermediateCube CubeId="}ICube_}Link_Dep_3ACap_Additions"><dimension>Month</dimension><dimension>organization</dimension><dimension>CapitalList</dimension><dimension>Asset Types</dimension><dimension>Year</dimension><dimension>Version</dimension><dimension>Capital</dimension><Rules>[] = S:IF(!Month @&lt;&gt; DB('Capital', !organization, !CapitalList, 
+    !Asset Types, !Year, !Version, 'Purchase Period'), CONTINUE, 
+    DB('Capital', !organization, !CapitalList, !Asset Types, 
+    !Year, !Version, !Capital));
+[] = N:IF(!Month @&lt;&gt; DB('Capital', !organization, !CapitalList, 
+    !Asset Types, !Year, !Version, 'Purchase Period'), CONTINUE, 
+    DB('Capital', !organization, !CapitalList, !Asset Types, 
+    !Year, !Version, !Capital));
+</Rules><Feeders>['CapitalList':{'1','2','3','4','5'}, 'Capital':'Purchase Cost'] =&gt; DB('Depreciation', 
+    !organization, !Asset Types, !Month, !Year, !Version, 'Additions');
+</Feeders></IntermediateCube><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

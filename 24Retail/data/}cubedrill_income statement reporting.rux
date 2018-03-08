@@ -1,0 +1,40 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+#Dashboard
+['Dashboard','101'] = S: IF(DB('Calendar', 'Current Version', 'String')@='Actual','Actuals',Continue);
+['Dashboard','101',{'4999','5999'}] = S:IF (ATTRS('Version',DB('Calendar', 'Current Version', 'String'),'Version Type') @= 'B','Revenue',STET);
+['Dashboard','101',{'6000','6005','6010','6015','FTE'}] = S:IF (ATTRS('Version',DB('Calendar', 'Current Version', 'String'),'Version Type') @= 'B','Employee',STET);
+['Dashboard','101',{'6300','6310','6320'}] = S:IF (ATTRS('Version',DB('Calendar', 'Current Version', 'String'),'Version Type') @= 'B','PhasedCosts',STET);
+['Dashboard','101',{'6400','6410'}] = S:IF (ATTRS('Version',DB('Calendar', 'Current Version', 'String'),'Version Type') @= 'B','LineItemDetail',STET);
+['Dashboard','101',{'6520'}] = S:IF (ATTRS('Version',DB('Calendar', 'Current Version', 'String'),'Version Type') @= 'B','Capital',STET);
+['Dashboard','101',{'6600'}] = S:IF (ATTRS('Version',DB('Calendar', 'Current Version', 'String'),'Version Type') @= 'B','AllocationsSenders',STET);
+['Dashboard','101',{'6610'}] = S:IF (ATTRS('Version',DB('Calendar', 'Current Version', 'String'),'Version Type') @= 'B','AllocationsReceivers',STET);
+#DashboardCA
+['DashboardCA','101'] = S: IF(DB('Calendar', 'Compare Against', 'String')@='Actual','Actuals',Continue);
+#Actuals
+['Actual','101'] = s: 'Actuals';
+['Forecast','101'] = S:IF(DB('Relative Time',!Year,!Month,'ActFor')@='A','Actuals',Continue);
+#Revenue
+['4999','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','Revenue',CONTINUE);
+['5999','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','Revenue',CONTINUE);
+# Payroll
+['6000','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','Employee',CONTINUE);
+['6005','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','Employee',CONTINUE);
+['6010','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','Employee',CONTINUE);
+['6015','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','Employee',CONTINUE);
+['FTE','101']    = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','Employee',CONTINUE);
+# Occupancy
+['6300','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','PhasedCosts',CONTINUE);
+['6310','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','PhasedCosts',CONTINUE);
+['6320','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','PhasedCosts',CONTINUE);
+# Marketing
+['6400','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','LineItemDetail',CONTINUE);
+['6410','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','LineItemDetail',CONTINUE);
+# Capital
+['6520','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','Capital',CONTINUE);
+# Allocations
+['6600','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','AllocationsSenders',CONTINUE);
+['6610','101']  = S:IF (ATTRS('Version',!Version,'Version Type') @= 'B','AllocationsReceivers',CONTINUE);

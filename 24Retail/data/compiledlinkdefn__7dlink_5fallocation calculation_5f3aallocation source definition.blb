@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Allocation Source Definition" TargetCube="Allocation Calculation" FeedersCube="Allocation Source Definition" LinkId="}Link_Allocation Calculation_3AAllocation Source Definition"><NumericRules></NumericRules><StringRules>['Allocation Calculation':{'Allocation Driver','Source Entity','Source Account'}] = S:DB('Allocation Source Definition', 
+    !Allocation List, !Year, !Version, ATTRS('Allocation Calculation', 
+    !Allocation Calculation, '}Map_}Link_Allocation Calculation_3AAllocation Source Definition'));
+</StringRules><Feeders>['Allocation Source Definition':'Source Account'] =&gt; DB('Allocation Calculation', 
+    'Total Company', !Allocation List, !Year, 'Year', !Version, 
+    'Source Account');
+['Allocation Source Definition':'Source Entity'] =&gt; DB('Allocation Calculation', 
+    'Total Company', !Allocation List, !Year, 'Year', !Version, 
+    'Source Entity');
+['Allocation Source Definition':'Allocation Driver'] =&gt; DB('Allocation Calculation', 
+    'Total Company', !Allocation List, !Year, 'Year', !Version, 
+    'Allocation Driver');
+</Feeders><XMLHiddenArtifacts DimensionId="Allocation Calculation"><HiddenAttributes><XMLHiddenAttributeTable Name="}Map_}Link_Allocation Calculation_3AAllocation Source Definition" Type="STRING"><Values member="Source Account" value="Source Account"/><Values member="Source Entity" value="Source Entity"/><Values member="Allocation Driver" value="Allocation Driver"/></XMLHiddenAttributeTable></HiddenAttributes></XMLHiddenArtifacts><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

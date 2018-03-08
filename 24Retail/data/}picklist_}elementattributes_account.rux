@@ -1,0 +1,6 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+['Forecast Method']=S:'Static::Budget:Remaining Budget:Average Prior 3 Months:Last Year Actual';

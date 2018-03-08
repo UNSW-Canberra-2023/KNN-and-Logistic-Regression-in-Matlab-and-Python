@@ -1,0 +1,23 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+UNDEFVALS;
+#EndRegion
+#UNDEFVALS;
+
+['zSource']=S:DB('Allocation Source Definition',!Allocation List,!Year,!Version,'Source Entity');
+
+['Source Amount'] = N:DB('Income Statement','Local',DB('Allocation Source Definition',!Allocation List,!Year,!Version,'Source Entity'),!Year,'Year',DB('Allocation Source Definition',!Allocation List,!Year,!Version,'Source Account'),!Version);
+
+['Allocation Amount']=N:['Source Amount']*['Pct to Allocate'];
+['All Allocations','Pct to Allocate']= c:0;
+
+FEEDERS;
+
+['Source Entity']=>['zSource'];
+
+['Source Account']=>['Source Amount'],['Allocation Amount'];
+['Source Account']=>DB('Allocation Calculation','Total Company',!Allocation List,!Year,'Year',!Version,'Allocation Amount');
+['Source Account']=>DB('Allocation Calculation','Total Company',!Allocation List,!Year,'Year',!Version,'Driver');
+['Source Account']=>DB('Allocation Calculation','Total Company',!Allocation List,!Year,'Year',!Version,'Exclude Entity');

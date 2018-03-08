@@ -1,0 +1,37 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+UNDEFVALS;
+#EndRegion
+[]=S:DB('Income Statement', !Currency Calc, !Organization Reporting , !Year, !Month, !Account, !Version);
+[]=n:DB('Income Statement', !Currency Calc, !Organization Reporting , !Year, !Month, !Account, !Version);
+
+#Region EPS
+['Total Company','EPS'] = C: DB('Income Statement', !Currency Calc,!Organization Reporting , !Year, !Month, !Account, !Version);
+#EndRegion
+
+#Region Year on Year Variances
+['Y2-Y1 %' ] = c: (['Y2 - Y1 $']\['Y1'])*100;
+['Y2-Y1 $' ] =  IF(attrn('Account',!Account,'signswitch')=0,['Y1']-['Y2'],['Y2']-['Y1']);
+#EndRegion
+
+#Region Variance calculation for Custom Version
+['Variance']=if(attrn('Account',!Account,'signswitch')=0,
+	(DB('Income Statement Reporting',!Currency Calc,!Organization Reporting,!Year,!Month,!Account,DB('Calendar', 'Current Version', 'String'))
+	        -DB('Income Statement Reporting',!Currency Calc,!Organization Reporting,!Year,!Month,!Account ,DB('Calendar', 'Compare Against', 'String'))) * ATTRN('Version',DB('Calendar', 'Compare Against', 'String'),'VarianceFactor')
+	,(DB('Income Statement Reporting',!Currency Calc,!Organization Reporting,!Year,!Month,!Account ,DB('Calendar', 'Compare Against', 'String'))
+	        -DB('Income Statement Reporting', !Currency Calc,!Organization Reporting,!Year,!Month,!Account ,DB('Calendar', 'Current Version', 'String')))*ATTRN('Version',DB('Calendar', 'Compare Against', 'String'),'VarianceFactor'));
+['Variance%']=c:['Variance']\DB('Income Statement Reporting',!Currency Calc,!Organization Reporting ,!Year,!Month,!Account ,DB('Calendar', 'Current Version', 'String'))*100;
+#EndRegion
+
+#Region Target vs Prior Year Actual
+['Target vs Prior Year Actual %']=(['Target vs Prior Year Actual']\RoundP(['Prior Year Actual'],0))*100;
+#EndRegion
+#Region Totals for Shares and FTE
+['Month':{'Year', 'YTD', 'Q1', 'Q2', 'Q3', 'Q4', 'Jan YTD', 'Feb YTD', 'Mar YTD', 'Apr YTD', 'May YTD', 'Jun YTD', 'Jul YTD', 'Aug YTD', 'Oct YTD', 'Nov YTD', 'Dec YTD', 'Sep YTD'}, 'Account':{'Shares','FTE'}]
+    =C: DB('Income Statement Reporting', !Currency Calc, !organization reporting, !Year, ATTRS('Month', !Month, 'lastperiod'), !Account, !Version);
+#EndRegion
+
+FEEDERS;
+

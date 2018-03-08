@@ -1,0 +1,14 @@
+﻿283,100
+284,"Level 0"
+11,20151202195139
+274,Caption_Default
+18,0
+275,51
+{TM1FILTERBYLEVEL( {TM1SUBSETALL( [product] )}, 0)}
+278,0
+281,0
+270,4
+Product Total
+20000
+30000
+40000

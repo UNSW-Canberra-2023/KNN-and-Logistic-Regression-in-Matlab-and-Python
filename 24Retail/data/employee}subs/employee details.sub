@@ -1,0 +1,10 @@
+﻿283,100
+284,"Employee Details"
+11,20151110202024
+274,
+18,0
+275,405
+{[Employee].[Employee].[Name/Desc],[Employee].[Employee].[Job Type],[Employee].[Employee].[Job Code],[Employee].[Employee].[Start Pd],[Employee].[Employee].[FTE],[Employee].[Employee].[Salary],[Employee].[Employee].[Current Salary],[Employee].[Employee].[Merit Pd],[Employee].[Employee].[Merit %],[Employee].[Employee].[Merit Adj %],[Employee].[Employee].[New Salary],[Employee].[Employee].[Term/xfer Pd]}
+278,0
+281,0
+270,0

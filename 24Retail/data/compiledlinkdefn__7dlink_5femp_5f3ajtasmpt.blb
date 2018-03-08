@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Job Type Assumption" TargetCube="Employee" FeedersCube="Employee" LinkId="}Link_Emp_3AJTAsmpt"><NumericRules>[] = N:IF(DIMIX('JobTypeAssumption', !Employee) &lt;&gt; 0, DB('Job Type Assumption', 
+    DB('Employee', !organization, !EmployeeList, !Year, !Version, 
+    'Job Type'), !Year, !Version, !Employee), CONTINUE);
+</NumericRules><StringRules>[] = S:IF(DIMIX('JobTypeAssumption', !Employee) &lt;&gt; 0, DB('Job Type Assumption', 
+    DB('Employee', !organization, !EmployeeList, !Year, !Version, 
+    'Job Type'), !Year, !Version, !Employee), CONTINUE);
+</StringRules><Feeders>['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Name/Desc');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Job Type');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Job Code');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'FTE');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, '50P Salary');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Current Salary');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Merit Pd');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Merit %');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Merit Adj %');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'New Salary');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Salary');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Start Pd');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Term/xfer Pd');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Total Cost');
+['Employee':'Job Type'] =&gt; DB('Employee', !organization, !EmployeeList, 
+    !Year, !Version, 'Comment');
+</Feeders><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

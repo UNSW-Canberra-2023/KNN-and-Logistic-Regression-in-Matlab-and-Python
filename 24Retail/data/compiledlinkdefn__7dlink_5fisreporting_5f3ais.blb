@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Income Statement" TargetCube="Income Statement Reporting" FeedersCube="Income Statement" LinkId="}Link_ISReporting_3AIS"><NumericRules>[] = N:IF(DIMIX('organization', !Organization Reporting) &lt;&gt; 0, DB('Income Statement', 
+    !Currency Calc, !Organization Reporting, !Year, !Month, !Account, 
+    !Version), CONTINUE);
+</NumericRules><StringRules>[] = S:IF(DIMIX('organization', !Organization Reporting) &lt;&gt; 0, DB('Income Statement', 
+    !Currency Calc, !Organization Reporting, !Year, !Month, !Account, 
+    !Version), CONTINUE);
+</StringRules><Feeders>[] =&gt; DB('Income Statement Reporting', !Currency Calc, !organization, 
+    !Year, !Month, !Account, !Version);
+</Feeders><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

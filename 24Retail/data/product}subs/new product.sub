@@ -1,0 +1,10 @@
+﻿283,100
+284,"New Product"
+11,20161015212919
+274,Caption_Default
+18,0
+275,68
+{FILTER( {TM1SUBSETALL( [Product] )}, [Product].[NewProduct] = "Y")}
+278,0
+281,0
+270,0

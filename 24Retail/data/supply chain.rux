@@ -1,0 +1,18 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+
+['Units Sold' ] = n: DB('Revenue', !organization, !Channel, !product, !Month, !Year, !Version, 'Units Sold');
+['Raw Material' ] = n: DB('Rate BOM', !Month, ATTRS('organization', !organization, 'Default Plant'), !product, 'Raw Material', !Year, !Version)*DB('Supply Chain', !organization, !Channel, !product, !Month, !Year, 'Units Sold', !Version);
+['Packaging Material' ] = n: DB('Rate BOM', !Month, ATTRS('organization', !organization, 'Default Plant'), !product, 'Packaging Material', !Year, !Version)*DB('Supply Chain', !organization, !Channel, !product, !Month, !Year, 'Units Sold', !Version);
+#['Pallets' ] = n:(['Units Sold' ] /49)*15;
+['Direct Labor' ] = n: DB('Rate BOM', !Month, ATTRS('organization', !organization, 'Default Plant'), !product, 'Direct Labor', !Year, !Version)*DB('Supply Chain', !organization, !Channel, !product, !Month, !Year, 'Units Sold', !Version);
+
+FEEDERS;
+
+#
+# Feeders Added by Guy to replace Garbage produced by PM
+#
+['Indirect Labor']=>['Raw Material'],['Packaging Material'],['Direct Labor'],['Units Sold' ];

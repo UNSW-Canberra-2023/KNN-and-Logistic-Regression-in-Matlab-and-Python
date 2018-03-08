@@ -1,0 +1,5 @@
+﻿FILE_FORMAT=100
+ENTRYNAME=Rate Volume Mix for Tablets
+ENTRYTYPE=blob
+ENTRYREFERENCE=TM1:///blob/PUBLIC/.\}externals\Rate Volume Mix for Tablets_20130726194302.xlsx
+REMOVEBLOBONDELETE=Yes

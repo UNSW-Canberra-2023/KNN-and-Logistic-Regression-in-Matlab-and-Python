@@ -1,0 +1,12 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+
+#Region tp_planning_rule
+[]=S:IF(DB('}tp_intermediate_RDCLS}Metrics',!organization,!}Groups,'all_applications','StaticRights')@<>'',DB('}tp_intermediate_RDCLS}Metrics',!organization,!}Groups,'all_applications','StaticRights'),CONTINUE);
+
+#EndRegion
+
+FEEDERS;

@@ -1,0 +1,275 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+UNDEFVALS;
+#EndRegion
+
+
+#['y1','Actual','Local']=STET;
+
+#Region ROW FORMAT
+['RowFormat',{'6000','6005','6010','6015','6300','6310','6320'}]=N:(-1);
+['RowFormat','Total Operating Expense']=2;
+['RowFormat']=IF(ELISANC('Account','TE',!Account)=1,
+ELLEV('Account',!Account),STET);
+#EndRegion;
+
+#Region Year on Year Variances
+['Y2-Y1 %' ] =  (['Y2 - Y1 $']\['Y1'])*100;
+['Y2-Y1 $' ] =  IF(attrn('Account',!Account,'signswitch')=0,['Y1']-['Y2'],['Y2']-['Y1']);
+#EndRegion
+
+#Region Currency Exchange Variances
+# Performance Variance = Budget rate * (Actual Local-Budget Local)
+
+['Performance Variance','Base'] = IF(attrn('Account',!Account,'signswitch')=0, DB('Exchange Rates', ATTRS('Organization', !Organization, 'Currency'), !Year, !Month, 'ExchangeRate', ATTRS('Account', !Account, 'Exchange Rate Type'), DB('Calendar', 'Current
+Version', 'String')) *
+                                            (DB('Income Statement','Local',!Organization,!Year,!Month,!Account,DB('Calendar', 'Current Version', 'String'))-DB('Income Statement','Local',!Organization,!Year,!Month,!Account,'Actual')), DB('Exchange Rates',
+ATTRS('Organization', !Organization, 'Currency'), !Year, !Month, 'ExchangeRate', ATTRS('Account', !Account, 'Exchange Rate Type'), DB('Calendar', 'Current Version', 'String')) *
+                                            (DB('Income Statement','Local',!Organization,!Year,!Month,!Account,'Actual')-DB('Income Statement','Local',!Organization,!Year,!Month,!Account,DB('Calendar', 'Current Version', 'String'))));
+# Currency Exchange Variance = (Actual Rate - Budget rate)*Actual Local
+
+['Ccy Exchange Variance','Base'] = IF(attrn('Account',!Account,'signswitch')=0,( DB('Exchange Rates', ATTRS('Organization', !Organization, 'Currency'), !Year, !Month, 'ExchangeRate', ATTRS('Account', !Account, 'Exchange Rate Type'), DB('Calendar', 'Curren
+t Version', 'String'))-
+                    	                             DB('Exchange Rates', ATTRS('Organization', !Organization, 'Currency'), !Year, !Month, 'ExchangeRate', ATTRS('Account', !Account, 'Exchange Rate Type'), 'Actual'))*
+                                                 DB('Income Statement','Local',!Organization,!Year,!Month,!Account,'Actual'),( DB('Exchange Rates', ATTRS('Organization', !Organization, 'Currency'), !Year, !Month, 'ExchangeRate', ATTRS('Account', !Account,
+ 'Exchange Rate Type'), 'Actual')-
+                    	                             DB('Exchange Rates', ATTRS('Organization', !Organization, 'Currency'), !Year, !Month, 'ExchangeRate', ATTRS('Account', !Account, 'Exchange Rate Type'), DB('Calendar', 'Current Version', 'String')))*
+                                                 DB('Income Statement','Local',!Organization,!Year,!Month,!Account,'Actual'));
+#EndRegion
+
+#Region Variance calculation for Custom Version
+
+['Variance']=if(attrn('Account',!Account,'signswitch')=0,
+	(DB('Income Statement',!Currency Calc,!Organization ,!Year,!Month,!Account,DB('Calendar', 'Current Version', 'String'))
+	        -DB('Income Statement',!Currency Calc,!Organization ,!Year,!Month,!Account ,DB('Calendar', 'Compare Against', 'String'))) * ATTRN('Version',DB('Calendar', 'Compare Against', 'String'),'VarianceFactor')
+	,(DB('Income Statement',!Currency Calc,!Organization ,!Year,!Month,!Account ,DB('Calendar', 'Compare Against', 'String'))
+	        -DB('Income Statement', !Currency Calc,!Organization ,!Year,!Month,!Account ,DB('Calendar', 'Current Version', 'String')))*ATTRN('Version',DB('Calendar', 'Compare Against', 'String'),'VarianceFactor'));
+['Variance%']=['Variance']\DB('Income Statement',!Currency Calc,!Organization ,!Year,!Month,!Account ,DB('Calendar', 'Current Version', 'String'))*100;
+#EndRegion
+
+
+#Region Target vs Prior Year Actual
+['Target vs Prior Year Actual']=if(attrn('Account',!Account,'signswitch')=0,['Target']-['Prior Year Actual'],['Prior Year Actual']-['Target'])*-1;
+['Target vs Prior Year Actual %']=(['Target vs Prior Year Actual']\RoundP(['Prior Year Actual'],0))*100;
+#EndRegion
+
+#Region Currency Conversion
+['FTE','Base'] = n: ['FTE','Local'];
+['Square Footage','Base'] = n: ['Square Footage','Local'];
+['Server Space','Base'] = n: ['Server Space','Local'];
+['Shares','Base'] = n: ['Shares','Local'];
+['Base' ]  = n: ['Local']* DB('Exchange Rates', ATTRS('Organization', !Organization, 'Currency'), !Year, !Month, 'ExchangeRate', ATTRS('Account', !Account, 'Exchange Rate Type'), !Version);
+#EndRegion
+
+#Region Prior Year Actual
+['Local','Prior Year Actual'] = n: DB('Income Statement','Local',!organization,ATTRS('Year',!Year,'Prev'),!Month,!Account,'Actual');
+#EndRegion
+
+#Region Get Version for Dashboard
+['Dashboard','Local'] = n: DB('Income Statement','Local', !organization, !Year, !Month, !Account, DB('Calendar', 'Current Version', 'String')) ;
+['DashboardCA','Local'] = n: DB('Income Statement','Local', !organization, !Year, !Month, !Account, DB('Calendar', 'Compare Against', 'String')) ;
+#EndRegion
+
+#Region EPS
+['Total Company','EPS','Local'] = C: DB('Income Statement', !Currency Calc,'Total Company', !Year, !Month,'NP', !Version)\DB('Income Statement', !Currency Calc, '101', !Year, !Month, 'Shares', !Version);
+['Total Company','EPS','Base'] = C: DB('Income Statement', !Currency Calc,'Total Company', !Year, !Month,'NP', !Version)\DB('Income Statement', 'Local', '101', !Year, !Month, 'Shares', !Version);
+['Month':{'Year', 'YTD', 'Q1', 'Q2', 'Q3', 'Q4', 'Jan YTD', 'Feb YTD', 'Mar YTD', 'Apr YTD', 'May YTD', 'Jun YTD', 'Jul YTD', 'Aug YTD', 'Oct YTD', 'Nov YTD', 'Dec YTD', 'Sep YTD'}, 'Account':{'Shares','FTE','Square Footage','Server Space'}]
+    =C: DB('Income Statement', !Currency Calc, !organization, !Year, ATTRS('Month', !Month, 'lastperiod'), !Account, !Version);
+#EndRegion
+
+#Region Forecasting
+# Populate the Actual Months in the Forecast
+['Forecast','Local']= n: IF(DB('Relative Time', !Year, !Month, 'ActFor')@='A',['Actual'],CONTINUE);
+# Rolling 3 Month Average
+['Forecast','Local']= n: IF(DB('Relative Time', !Year, !Month, 'ActFor')@='F' & DB('FcstMethod',!Account,'FcstMethod')@='Average Prior 3 Months',
+     ( DB('Income Statement',!Currency Calc,!organization,DB('Relative Time', !Year, !Month, 'CM-1Y'),DB('Relative Time', !Year, !Month, 'M-1'),!Account,!Version) +
+       DB('Income Statement',!Currency Calc,!organization,DB('Relative Time', !Year, !Month, 'CM-2Y'),DB('Relative Time', !Year, !Month, 'M-2'),!Account,!Version) +
+       DB('Income Statement',!Currency Calc,!organization,DB('Relative Time', !Year, !Month, 'CM-3Y'),DB('Relative Time', !Year, !Month, 'M-3'),!Account,!Version) ) /3
+,CONTINUE);
+# Last Year Actual
+['Forecast','Local']= n: IF(DB('Relative Time', !Year, !Month, 'ActFor')@='F' & DB('FcstMethod',!Account,'FcstMethod')@='Last Year Actual',
+     DB('Income Statement',!Currency Calc,!organization,DB('Relative Time', !Year, !Month, 'CMPYY'),DB('Relative Time', !Year, !Month, 'CMPY'),!Account,'Actual')
+,CONTINUE);
+# Budget
+['Forecast','Local']= n: IF(DB('Relative Time', !Year, !Month, 'ActFor')@='F' & DB('FcstMethod',!Account,'FcstMethod')@='Budget',
+     DB('Income Statement',!Currency Calc,!organization,!Year,!Month,!Account,DB('Calendar','Current Version','String'))
+,CONTINUE);
+#Remaining Budget
+['Forecast','Local']= n: IF(DB('Relative Time', !Year, !Month, 'ActFor')@='F' & DB('FcstMethod',!Account,'FcstMethod')@='Remaining Budget',
+  DB('Income Statement', 'Local', !organization, !Year, !Month,!Account, DB('Calendar','Current Version','String')) +
+ (
+   (
+     DB('Income Statement', 'Local', !organization, !Year, ATTRS('Month',ATTRS('Month',!Month,'previousperiod'),'YTD'),!Account, DB('Calendar','Current Version','String'))-
+     DB('Income Statement', 'Local', !organization, !Year, ATTRS('Month',ATTRS('Month',!Month,'previousperiod'),'YTD'),!Account, 'Forecast')
+    ) *
+    (
+      DB('Income Statement', 'Local', !organization, !Year, !Month,!Account, DB('Calendar','Current Version','String')) \
+      (
+	    DB('Income Statement', 'Local', !organization, !Year, 'Year',!Account, DB('Calendar','Current Version','String')) -
+	    DB('Income Statement', 'Local', !organization, !Year, ATTRS('Month',ATTRS('Month',!Month,'previousperiod'),'YTD'),!Account, DB('Calendar','Current Version','String'))
+      )
+    )
+  )
+,CONTINUE);
+
+#EndRegion
+
+#Region C-Calculation rules: Dimension:Account
+#Autogenerated CALC CONSOLIDATED 4163636F756E74
+   #Region Dimension:Account, Member:Rev per FTE
+   #Autogenerated MEMBERCALC CONSOLIDATED 5B4163636F756E745D2E5B52657620706572204654455D
+   #@AutoGenerated
+   ['Account':{'Rev per FTE'}]=C:['Account':'4999']\['Account':'FTE'];
+   #EndRegion
+   #Region Dimension:Account, Member:Cost per FTE
+   #Autogenerated MEMBERCALC CONSOLIDATED 5B4163636F756E745D2E5B436F737420706572204654455D
+   #@AutoGenerated
+   ['Account':{'Cost per FTE'}]=C:['Account':'TE']\['Account':'FTE'];
+   #EndRegion
+#EndRegion
+
+#Region N-Calculation rules: Dimension:Account
+#Autogenerated CALC NUMERIC 4163636F756E74
+   #Region Dimension:Account, Member:Rev per FTE
+   #Autogenerated MEMBERCALC NUMERIC 5B4163636F756E745D2E5B52657620706572204654455D
+   #@AutoGenerated
+   ['Account':{'Rev per FTE'}]=N:['Account':'4999']\['Account':'FTE'];
+   #EndRegion
+   #Region Dimension:Account, Member:Cost per FTE
+   #Autogenerated MEMBERCALC NUMERIC 5B4163636F756E745D2E5B436F737420706572204654455D
+   #@AutoGenerated
+   ['Account':{'Cost per FTE'}]=N:['Account':'TE']\['Account':'FTE'];
+   #EndRegion
+#EndRegion
+
+
+#Region Bring in The Headcount Section
+#Salary
+['Local','6000']= n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Compensation', !Organization,'Total', !Month,!Year,!Version, '6000'),CONTINUE);
+# Bonus
+['Local','6005']= n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Compensation', !Organization,'Total', !Month,!Year,!Version, '6005'),CONTINUE);
+# Benefits
+['Local','6010']= n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Compensation', !Organization,'Total', !Month,!Year,!Version, '6010'),CONTINUE);
+# Employer Taxes
+['Local','6015']= n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Compensation', !Organization,'Total', !Month,!Year,!Version, '6015'),CONTINUE);
+# Headcount
+['Local','FTE']= n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Compensation', !Organization,'Total', !Month,!Year,!Version, 'FTE'),CONTINUE);
+#EndRegion
+
+#Region - Bring in The Revenue
+['Local','4999'] = n: IF(ATTRS('Version',!Version,'Version Type') @= 'B', DB('Revenue',!organization, 'Channel Total', 'Product Total', !Month, !Year,!Version,'Gross Revenue'),CONTINUE);
+['Local','5999'] = n: IF(ATTRS('Version',!Version,'Version Type') @= 'B', DB('Revenue',!organization, 'Channel Total', 'Product Total', !Month, !Year,!Version,'Cost of Sales'),CONTINUE);
+#EndRegion
+
+#Region Bring in the Line Item Detail
+['6400','Local'] = n: IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Line Item Detail',!organization, !Account, 'Total', !Year, !Version, 'Total',!Month),CONTINUE);
+['6410','Local'] = n: IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Line Item Detail',!organization, !Account, 'Total', !Year, !Version, 'Total',!Month),CONTINUE);
+#EndRegion
+
+#Region Phased Costs
+# 6300
+['Local','6300']=n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',
+DB('Phased Costs',!organization,!Account,!Year,!Version,'Full Year Cost')
+*DB('Spread Methods',DB('Phased Costs',!organization,!Account,!Year,!Version,'Spread Method'),!Month,!Version)
+\DB('Spread Methods',DB('Phased Costs',!organization,!Account,!Year,!Version,'Spread Method'),'Year',!Version)
+,CONTINUE);
+# 6310
+['Local','6310']=n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',
+DB('Phased Costs',!organization,!Account,!Year,!Version,'Full Year Cost')
+*DB('Spread Methods',DB('Phased Costs',!organization,!Account,!Year,!Version,'Spread Method'),!Month,!Version)
+\DB('Spread Methods',DB('Phased Costs',!organization,!Account,!Year,!Version,'Spread Method'),'Year',!Version)
+,CONTINUE);
+# 6320
+['Local','6320']=n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',
+DB('Phased Costs',!organization,!Account,!Year,!Version,'Full Year Cost')
+*DB('Spread Methods',DB('Phased Costs',!organization,!Account,!Year,!Version,'Spread Method'),!Month,!Version)
+\DB('Spread Methods',DB('Phased Costs',!organization,!Account,!Year,!Version,'Spread Method'),'Year',!Version)
+,CONTINUE);
+#EndRegion
+
+#Region Bring in the Depreciation
+# New
+['6520','Local'] = n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Depreciation', !organization, 'Asset Total', !Month, !Year,!Version, '6520'),CONTINUE);
+# Existing
+['6510','Local'] = n:IF(ATTRS('Version',!Version,'Version Type') @= 'B',DB('Depreciation', !organization, 'Asset Total', !Month, !Year,!Version, '6510'),CONTINUE);
+#EndRegion
+
+#Region Bring in the Allocations
+
+#[{'6600','6610'},'Local','Y1','Actual']=STET;
+
+['6600','Local'] = n:IF(ATTRS('Version',!Version,'Version Type') @= 'B' %
+                        ATTRS('Version',!Version,'Version Type') @= 'A' %
+                        ATTRS('Version',!Version,'Version Type') @= 'T'
+                     ,DB('Allocation Calculation', !organization, 'All Allocations', !Year, !Month, !Version, 'Allocated Amount'),CONTINUE);
+['6610','Local'] = n:IF(ATTRS('Version',!Version,'Version Type') @= 'B' %
+                        ATTRS('Version',!Version,'Version Type') @= 'A' %
+                        ATTRS('Version',!Version,'Version Type') @= 'T'
+                     ,DB('Allocation Calculation', !organization, 'All Allocations', !Year, !Month, !Version, 'Credit Amount'),CONTINUE);
+#EndRegion
+
+FEEDERS;
+
+#Region Currency Calculation
+['Local']=>['Base'];
+#EndRegion
+
+#Region Currency Variance Calcs
+['Local']=>DB(IF(DIMNM('Version', DIMIX('Version', !Version))@=DB('Calendar', 'Current Version', 'String'),'Income Statement',''), 'Base', !organization, !Year, !Month, !Account, 'Performance Variance');
+['Local']=>DB(IF(DIMNM('Version', DIMIX('Version', !Version))@=DB('Calendar', 'Current Version', 'String'),'Income Statement',''), 'Base', !organization, !Year, !Month, !Account, 'Ccy Exchange Variance');
+#EndRegion
+
+
+#Region Target vs Prior Year Actual
+['Prior Year Actual']=>['Target vs Prior Year Actual'],['Target vs Prior Year Actual %'];
+['Target']=>['Target vs Prior Year Actual'],['Target vs Prior Year Actual %'];
+
+#EndRegion
+
+#Region Variance Calculation
+#['Local']=>DB(IF(DIMNM('Version', DIMIX('Version', !Version))@=DB('Calendar', 'Current Version', 'String'),'Income Statement',''),'Local',!organization, !Year, !Month, !Account,'Variance');
+['Actual']=>['Variance'];
+['Variance']=>['Variance%'],['Performance Variance'],['Ccy Exchange Variance'];
+#EndRegion
+
+#Region Prior Year Version
+['Actual','Local'] => DB('Income Statement','Local',!organization,ATTRS('Year',!Year,'Next'),!Month,!Account,'Prior Year Actual');
+#EndRegion
+
+#Region Dashboard Version
+#['Local']=>DB(IF(DIMNM('Version', DIMIX('Version', !Version))@=DB('Calendar', 'Current Version', 'String'),'Income Statement',''), 'Local', !organization, !Year, !Month, !Account, 'Dashboard');
+#['Local']=>DB(IF(DIMNM('Version', DIMIX('Version', !Version))@=DB('Calendar', 'Compare Against', 'String'),'Income Statement',''), 'Local', !organization, !Year, !Month, !Account, 'DashboardCA');
+['Actual']=>['Dashboard'];
+['Actual']=>['DashboardCA'];
+#EndRegion
+
+#Region Forecast Version
+['Actual']=>['Forecast'];
+#EndRegion
+
+#DB('Income Statement', !Currency Calc, !organization, !Year, !Month, !Account, !Version);
+
+#Region Feed the Income Statement Reporting Cube
+[ ] =>DB('Income Statement Reporting', !Currency Calc, !organization, !Year, !Month, !Account, !Version);
+#EndRegion
+
+#Region YoY Variances
+[{'Y1','Y2'}]=> ['Y2-Y1 $'];
+['Y2-Y1 $']=> ['Y2-Y1 %'];
+#EndRegion
+
+#Region EPS
+['Shares']=>['EPS'];
+#EndRegion
+
+
+#Region Automatically generated feeders
+#Autogenerated AUTOFEEDERS
+['Account':'FTE', 'Version':{'Version 1', 'Performance Variance', 'Target vs Prior Year Actual %', 'Ccy Exchange Variance', 'Variance%', 'Prior Year Actual', 'Variance', 'Dashboard', 'Target', 'Volume Variance', 'Predictive', 'Zero', 'DashboardCA', 'Predictivev2', 'Target vs Prior Year Actual', 'Version 2', 'Actual', 'Forecast', 'Rate Variance'}] => ['Account':'Rev per FTE'];
+['Currency Calc':'Base', 'Version':'Dashboard'] => DB('Metrics', !Account, !organization, !Year, !Month, 'Target');
+['Currency Calc':'Base', 'Version':'DashboardCA'] => DB('Metrics', !Account, !organization, !Year, !Month, 'Actual');
+['Currency Calc':'Base', 'Version':'Forecast'] => DB('Metrics', !Account, !organization, !Year, !Month, 'Forecast');
+['Account':'TE', 'Version':{'Version 1', 'Performance Variance', 'Target vs Prior Year Actual %', 'Ccy Exchange Variance', 'Variance%', 'Prior Year Actual', 'Variance', 'Dashboard', 'Target', 'Volume Variance', 'Predictive', 'Zero', 'DashboardCA', 'Predictivev2', 'Target vs Prior Year Actual', 'Version 2', 'Actual', 'Forecast', 'Rate Variance'}] => ['Account':'Cost per FTE'];
+#EndRegion

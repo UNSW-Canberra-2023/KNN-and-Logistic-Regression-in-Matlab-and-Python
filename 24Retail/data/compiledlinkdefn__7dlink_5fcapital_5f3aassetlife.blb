@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Asset Life" TargetCube="Capital" FeedersCube="Asset Life" LinkId="}Link_Capital_3AAssetLife"><NumericRules>['Capital':'Life'] = N:DB('Asset Life', !Asset Types, !Version, 
+    'Asset Life');
+</NumericRules><StringRules></StringRules><Feeders>['Asset Life':'Asset Life'] =&gt; DB('Capital', 'Total Company', 
+    'Total', !Asset Types, 'Y1', !Version, 'Life');
+['Asset Life':'Asset Life'] =&gt; DB('Capital', 'Total Company', 
+    'Total', !Asset Types, 'Y2', !Version, 'Life');
+['Asset Life':'Asset Life'] =&gt; DB('Capital', 'Total Company', 
+    'Total', !Asset Types, 'Y3', !Version, 'Life');
+</Feeders><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

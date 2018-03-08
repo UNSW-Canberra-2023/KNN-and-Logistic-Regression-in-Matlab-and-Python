@@ -1,0 +1,10 @@
+﻿283,100
+284,"Job Type"
+11,20151110204914
+274,Caption_Default
+18,0
+275,49
+{TM1SubsetToSet([jobcode].[jobcode], "Job Type")}
+278,0
+281,0
+270,0

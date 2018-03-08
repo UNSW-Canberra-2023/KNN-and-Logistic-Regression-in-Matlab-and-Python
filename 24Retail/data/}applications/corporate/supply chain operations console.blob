@@ -1,0 +1,5 @@
+﻿FILE_FORMAT=100
+ENTRYNAME=Supply Chain Operations Console
+ENTRYTYPE=blob
+ENTRYREFERENCE=TM1:///blob/PUBLIC/.\}externals\Supply Chain Operations Console.xlsx_20140523153843.xlsx
+REMOVEBLOBONDELETE=Yes

@@ -1,0 +1,17 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+[] = S:IF(!Month @<> DB('Capital', !organization, !CapitalList, 
+    !Asset Types, !Year, !Version, 'Purchase Period'), CONTINUE, 
+    DB('Capital', !organization, !CapitalList, !Asset Types, 
+    !Year, !Version, !Capital));
+[] = N:IF(!Month @<> DB('Capital', !organization, !CapitalList, 
+    !Asset Types, !Year, !Version, 'Purchase Period'), CONTINUE, 
+    DB('Capital', !organization, !CapitalList, !Asset Types, 
+    !Year, !Version, !Capital));
+
+FEEDERS;
+['CapitalList':{'1','2','3','4','5'}, 'Capital':'Purchase Cost'] => DB('Depreciation', 
+    !organization, !Asset Types, !Month, !Year, !Version, 'Additions');

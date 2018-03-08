@@ -1,0 +1,29 @@
+﻿283,100
+284,"Predictive"
+11,20161017210137
+274,
+18,0
+275,62
+{TM1FILTERBYPATTERN( {TM1SUBSETALL( [Version] )}, "Predict*")}
+278,0
+281,0
+270,19
+Version 1
+Version 2
+Variance
+Variance%
+Explanation
+Performance Variance
+Ccy Exchange Variance
+Dashboard
+DashboardCA
+Actual
+Forecast
+Target
+Prior Year Actual
+Target vs Prior Year Actual
+Target vs Prior Year Actual %
+Rate Variance
+Volume Variance
+Zero
+Predictive

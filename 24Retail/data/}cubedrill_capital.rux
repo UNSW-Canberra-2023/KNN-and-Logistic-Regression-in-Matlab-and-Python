@@ -1,0 +1,7 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+['Life']=s:'AssetLife';
+['Monthly Expense']=S:'Depreciation';

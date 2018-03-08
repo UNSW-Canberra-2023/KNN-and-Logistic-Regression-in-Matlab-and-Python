@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCubeCalculation xmlns="http://www.ibm.com/dimensioncalculation.xsd" CubeId="_BAK_Employee" Version="1.0"><XMLDimensionCalculation DimensionId="Year"/><XMLDimensionCalculation DimensionId="organization"/><XMLDimensionCalculation DimensionId="EmployeeList"/><XMLDimensionCalculation DimensionId="Version"><XMLMemberCalculation MemberId="[Version].[V3]"><NumericRules>###Version Calculation
+['Version':{'V3'}]=IF(ATTRN('Employee', !Employee, 'signswitch')=1 , 
+['Version':'Version 2']-['Version':'Version 1'], 
+['Version':'Version 1']-['Version':'Version 2']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Version].[V4]"><NumericRules>###Version Calculation
+['Version':{'V4'}]=IF(ATTRN('Employee', !Employee, 'signswitch')=1 , 
+((['Version':'Version 2']-['Version':'Version 1'])\['Version':'Version 1'])*100, 
+((['Version':'Version 1']-['Version':'Version 2'])\['Version':'Version 1'])*100);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation></XMLDimensionCalculation><XMLDimensionCalculation DimensionId="Employee"><XMLMemberCalculation MemberId="[Employee].[New Salary]"><NumericRules>['Employee':{'New Salary'}]=N:(['Employee':'Salary']*(1+(['Employee':'Merit %']\100)));
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules><XMLMemberFeeder MemberId="[Employee].[Merit %]"><Feeders>['Employee':{'Merit %'}]=&gt;['Employee':'New Salary'];
+</Feeders><Comment>##Feeder for Merit % to New Salary
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Employee].[Salary]"><Feeders>['Employee':{'Salary'}]=&gt;['Employee':'New Salary'];
+</Feeders><Comment>##Feeder for Salary to New Salary
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Employee].[Salary]"><NumericRules>['Employee':{'Salary'}]=N:IF((['Employee':'50P Salary']&lt;&gt;0),['Employee':'50P Salary'],['Employee':'Current Salary']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules><XMLMemberFeeder MemberId="[Employee].[50P Salary]"><Feeders>['Employee':{'50P Salary'}]=&gt;['Employee':'Salary'];
+</Feeders><Comment>##Feeder for 50P Salary to Salary
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Employee].[Current Salary]"><Feeders>['Employee':{'Current Salary'}]=&gt;['Employee':'Salary'];
+</Feeders><Comment>##Feeder for Current Salary to Salary
+</Comment></XMLMemberFeeder></XMLMemberCalculation></XMLDimensionCalculation></XMLCubeCalculation>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApplicationSecurity xmlns="http://www.ibm.com/appsecurity.xsd" version="1" id="0f309cd0-4215-4482-8471-80ef000fcbb3" type="WORKFLOW"><ApprovalsDimension id="organization" subset="Workflow"/><serverName>ibmdemo.demos.ibm.com:smartco</serverName><Offline><OfflineAccess elementId="Cognos\Everyone"/></Offline></ApplicationSecurity>

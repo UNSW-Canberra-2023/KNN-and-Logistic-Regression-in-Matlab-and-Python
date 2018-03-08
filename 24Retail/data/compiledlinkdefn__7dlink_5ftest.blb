@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Capital" TargetCube="Depreciation" FeedersCube="Capital" LinkId="}Link_Test"><NumericRules>['Depreciation':'New Additions'] = N:(DB('}ICube_}Link_Test', 
+    !Month, !organization, '1', !Asset Types, !Version, 'Purchase Cost') + DB('}ICube_}Link_Test', 
+    !Month, !organization, '2', !Asset Types, !Version, 'Purchase Cost') + DB('}ICube_}Link_Test', 
+    !Month, !organization, '3', !Asset Types, !Version, 'Purchase Cost') + DB('}ICube_}Link_Test', 
+    !Month, !organization, '4', !Asset Types, !Version, 'Purchase Cost') + DB('}ICube_}Link_Test', 
+    !Month, !organization, '5', !Asset Types, !Version, 'Purchase Cost'));
+</NumericRules><StringRules></StringRules><Feeders>['Capital':'Purchase Period'] =&gt; DB('}ICube_}Link_Test', DB('Capital', 
+    !organization, !CapitalList, !Asset Types, !Version, 'Purchase Period'), 
+    !organization, !CapitalList, !Asset Types, !Version, 'Purchase Cost');
+</Feeders><IntermediateCube CubeId="}ICube_}Link_Test"><dimension>Month</dimension><dimension>organization</dimension><dimension>CapitalList</dimension><dimension>Asset Types</dimension><dimension>Version</dimension><dimension>Capital</dimension><Rules>[] = N:IF(!Month @&lt;&gt; DB('Capital', !organization, !CapitalList, 
+    !Asset Types, !Version, 'Purchase Period'), CONTINUE, DB('Capital', 
+    !organization, !CapitalList, !Asset Types, !Version, !Capital));
+</Rules><Feeders>['CapitalList':{'1','2','3','4','5'}, 'Capital':'Purchase Cost'] =&gt; DB('Depreciation', 
+    !organization, !Asset Types, !Month, !Version, 'New Additions');
+</Feeders></IntermediateCube><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

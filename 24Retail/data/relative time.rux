@@ -1,0 +1,17 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+UNDEFVALS;
+#EndRegion
+#UNDEFVALS;
+
+['ActFor']=S:IF(ATTRN('Month',!Month,'Number')>=ATTRN('Month',DB('Calendar','Fcst Month','String'),'Number'),'F','A');
+
+['ActForMonth']=N:IF(DB('Relative Time',!Year,!Month,'ActFor')@='A',1,0);
+
+
+FEEDERS;
+['ActFor']=>['ActForMonth'];
+['ActFor']=>DB('Income Statement', 'Local', 'Total Company', !Year, !Month, 'NPAA', 'Forecast');
+['ActFor']=>DB('Income Statement', 'Local', 'Total Company', !Year, !Month, 'Statistics', 'Forecast');

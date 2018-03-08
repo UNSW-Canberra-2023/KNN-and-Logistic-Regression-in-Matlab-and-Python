@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Allocation Calculation" TargetCube="Income Statement" FeedersCube="Allocation Calculation" LinkId="}Link_IncomeStatement_3AAllocation Calculation"><NumericRules>['Currency Calc':'Local', 'Account':{'6600','6610'}] = N:DB('Allocation Calculation', 
+    !organization, 'All Allocations', !Year, !Month, !Version, 
+    ATTRS('Account', !Account, '}Map_}Link_IncomeStatement_3AAllocation Calculation'));
+</NumericRules><StringRules>['Currency Calc':'Local', 'Account':{'6600','6610'}] = S:DB('Allocation Calculation', 
+    !organization, 'All Allocations', !Year, !Month, !Version, 
+    ATTRS('Account', !Account, '}Map_}Link_IncomeStatement_3AAllocation Calculation'));
+</StringRules><Feeders>['Allocation Calculation':'Allocated Amount', 'Allocation List':'All Allocations'] =&gt; DB('Income Statement', 
+    'Local', !organization, !Year, !Month, '6600', !Version);
+['Allocation Calculation':'Credit Amount', 'Allocation List':'All Allocations'] =&gt; DB('Income Statement', 
+    'Local', !organization, !Year, !Month, '6610', !Version);
+</Feeders><XMLHiddenArtifacts DimensionId="Account"><HiddenAttributes><XMLHiddenAttributeTable Name="}Map_}Link_IncomeStatement_3AAllocation Calculation" Type="STRING"><Values member="6600" value="Allocated Amount"/><Values member="6610" value="Credit Amount"/></XMLHiddenAttributeTable></HiddenAttributes></XMLHiddenArtifacts><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

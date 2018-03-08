@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCubeCalculation xmlns="http://www.ibm.com/dimensioncalculation.xsd" CubeId="_BAK_Revenue" Version="1.0"><XMLDimensionCalculation DimensionId="Year"/><XMLDimensionCalculation DimensionId="organization"/><XMLDimensionCalculation DimensionId="Channel"/><XMLDimensionCalculation DimensionId="product"/><XMLDimensionCalculation DimensionId="Month"/><XMLDimensionCalculation DimensionId="Version"><XMLMemberCalculation MemberId="[Version].[V3]"><NumericRules>###Version Calculation
+['Version':{'V3'}]=IF(ATTRN('Revenue', !Revenue, 'signswitch')=1 , 
+['Version':'Version 2']-['Version':'Version 1'], 
+['Version':'Version 1']-['Version':'Version 2']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Version].[V4]"><NumericRules>###Version Calculation
+['Version':{'V4'}]=IF(ATTRN('Revenue', !Revenue, 'signswitch')=1 , 
+((['Version':'Version 2']-['Version':'Version 1'])\['Version':'Version 1'])*100, 
+((['Version':'Version 1']-['Version':'Version 2'])\['Version':'Version 1'])*100);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation></XMLDimensionCalculation><XMLDimensionCalculation DimensionId="Revenue"><XMLMemberCalculation MemberId="[Revenue].[Unit Price]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Revenue':{'Unit Price'}]=C:(['Revenue':'Gross Revenue']\['Revenue':'Units Sold']);
+</ParentRules><XMLMemberFeeder MemberId="[Revenue].[Units Sold]"><Feeders>['Revenue':{'Units Sold'}]=&gt;['Revenue':'Unit Price'];
+</Feeders><Comment>##Feeder for Units Sold to Unit Price
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Revenue].[Gross Revenue]"><Feeders>['Revenue':{'Gross Revenue'}]=&gt;['Revenue':'Unit Price'];
+</Feeders><Comment>##Feeder for Gross Revenue to Unit Price
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Revenue].[Gross Revenue]"><NumericRules>['Revenue':{'Gross Revenue'}]=N:(['Revenue':'Unit Price']*['Revenue':'Units Sold']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules><XMLMemberFeeder MemberId="[Revenue].[Unit Price]"><Feeders>['Revenue':{'Unit Price'}]=&gt;['Revenue':'Gross Revenue'];
+</Feeders><Comment>##Feeder for Unit Price to Gross Revenue
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Revenue].[Units Sold]"><Feeders>['Revenue':{'Units Sold'}]=&gt;['Revenue':'Gross Revenue'];
+</Feeders><Comment>##Feeder for Units Sold to Gross Revenue
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Revenue].[Unit Cost]"><NumericRules></NumericRules><StringRules></StringRules><ParentRules>['Revenue':{'Unit Cost'}]=C:(['Revenue':'Cost of Sales']\['Revenue':'Units Sold']);
+</ParentRules><XMLMemberFeeder MemberId="[Revenue].[Units Sold]"><Feeders>['Revenue':{'Units Sold'}]=&gt;['Revenue':'Unit Cost'];
+</Feeders><Comment>##Feeder for Units Sold to Unit Cost
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Revenue].[Cost of Sales]"><Feeders>['Revenue':{'Cost of Sales'}]=&gt;['Revenue':'Unit Cost'];
+</Feeders><Comment>##Feeder for Cost of Sales to Unit Cost
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Revenue].[Cost of Sales]"><NumericRules>['Revenue':{'Cost of Sales'}]=N:(['Revenue':'Unit Cost']*['Revenue':'Units Sold']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules><XMLMemberFeeder MemberId="[Revenue].[Units Sold]"><Feeders>['Revenue':{'Units Sold'}]=&gt;['Revenue':'Cost of Sales'];
+</Feeders><Comment>##Feeder for Units Sold to Cost of Sales
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Revenue].[Unit Cost]"><Feeders>['Revenue':{'Unit Cost'}]=&gt;['Revenue':'Cost of Sales'];
+</Feeders><Comment>##Feeder for Unit Cost to Cost of Sales
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Revenue].[Gross Margin]"><NumericRules>['Revenue':{'Gross Margin'}]=N:(['Revenue':'Gross Revenue']-['Revenue':'Cost of Sales']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules><XMLMemberFeeder MemberId="[Revenue].[Gross Revenue]"><Feeders>['Revenue':{'Gross Revenue'}]=&gt;['Revenue':'Gross Margin'];
+</Feeders><Comment>##Feeder for Gross Revenue to Gross Margin
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Revenue].[Cost of Sales]"><Feeders>['Revenue':{'Cost of Sales'}]=&gt;['Revenue':'Gross Margin'];
+</Feeders><Comment>##Feeder for Cost of Sales to Gross Margin
+</Comment></XMLMemberFeeder></XMLMemberCalculation><XMLMemberCalculation MemberId="[Revenue].[Gross Margin %]"><NumericRules>['Revenue':{'Gross Margin %'}]=N:(['Revenue':'Gross Margin']\['Revenue':'Gross Revenue']);
+</NumericRules><StringRules></StringRules><ParentRules>['Revenue':{'Gross Margin %'}]=C:(['Revenue':'Gross Margin']\['Revenue':'Gross Revenue']);
+</ParentRules><XMLMemberFeeder MemberId="[Revenue].[Gross Revenue]"><Feeders>['Revenue':{'Gross Revenue'}]=&gt;['Revenue':'Gross Margin %'];
+</Feeders><Comment>##Feeder for Gross Revenue to Gross Margin %
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Revenue].[Gross Margin]"><Feeders>['Revenue':{'Gross Margin'}]=&gt;['Revenue':'Gross Margin %'];
+</Feeders><Comment>##Feeder for Gross Margin to Gross Margin %
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Revenue].[Gross Revenue]"><Feeders>['Revenue':{'Gross Revenue'}]=&gt;['Revenue':'Gross Margin %'];
+</Feeders><Comment>##Feeder for Gross Revenue to Gross Margin %
+</Comment></XMLMemberFeeder><XMLMemberFeeder MemberId="[Revenue].[Gross Margin]"><Feeders>['Revenue':{'Gross Margin'}]=&gt;['Revenue':'Gross Margin %'];
+</Feeders><Comment>##Feeder for Gross Margin to Gross Margin %
+</Comment></XMLMemberFeeder></XMLMemberCalculation></XMLDimensionCalculation></XMLCubeCalculation>

@@ -1,0 +1,6 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+['Job Code']=S:IF(DB('Employee',!organization,!EmployeeList,!Year,!Version,'Job Type') @='','Subset:JobCode:EmptyJobType','Subset:JobCode:'|DB('Employee',!organization,!EmployeeList,!Year,!Version,'Job Type'));

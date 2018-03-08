@@ -1,0 +1,18 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+UNDEFVALS;
+#EndRegion
+
+
+['Forecast','FcstMonth']=S:ATTRS('MonthMap',STR(DB('Relative Time',DB('Calendar','Current Year','String'),'Year','ActForMonth'),2,0),'Name');
+#['Forecast','FcstMonth']=S:ATTRS('MonthMap',STR(4,2,0),'Name');
+
+
+FEEDERS;
+
+
+
+
+

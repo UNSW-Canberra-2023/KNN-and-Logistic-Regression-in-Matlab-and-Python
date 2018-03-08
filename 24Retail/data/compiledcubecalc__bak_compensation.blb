@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCubeCalculation xmlns="http://www.ibm.com/dimensioncalculation.xsd" CubeId="_BAK_Compensation" Version="1.0"><XMLDimensionCalculation DimensionId="organization"/><XMLDimensionCalculation DimensionId="EmployeeList"/><XMLDimensionCalculation DimensionId="Year"/><XMLDimensionCalculation DimensionId="Month"/><XMLDimensionCalculation DimensionId="Version"><XMLMemberCalculation MemberId="[Version].[V3]"><NumericRules>###Version Calculation
+['Version':{'V3'}]=IF(ATTRN('Compensation', !Compensation, 'signswitch')=1 , 
+['Version':'Version 2']-['Version':'Version 1'], 
+['Version':'Version 1']-['Version':'Version 2']);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Version].[V4]"><NumericRules>###Version Calculation
+['Version':{'V4'}]=IF(ATTRN('Compensation', !Compensation, 'signswitch')=1 , 
+((['Version':'Version 2']-['Version':'Version 1'])\['Version':'Version 1'])*100, 
+((['Version':'Version 1']-['Version':'Version 2'])\['Version':'Version 1'])*100);
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation></XMLDimensionCalculation><XMLDimensionCalculation DimensionId="Compensation"><XMLMemberCalculation MemberId="[Compensation].[YTD Salary &amp; Bonus]"><NumericRules>##CUMULATE : calculates the cumulative totals in output member cell based on the orginal values in the input member cell
+['Compensation':{'YTD Salary &amp; Bonus'}]=N:DB('_BAK_Compensation', !organization, !EmployeeList, !Year, !Month, !Version, 'Monthly Salary &amp; Bonus')+DB('_BAK_Compensation', !organization, !EmployeeList, !Year, ATTRS('Month', !Month, 'previousperiod'), !Version, 'YTD Salary &amp; Bonus');
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules><XMLMemberFeeder MemberId="[Compensation].[YTD Salary &amp; Bonus]"><Feeders>['Compensation':{'YTD Salary &amp; Bonus'}]=&gt;DB('_BAK_Compensation', !organization, !EmployeeList, !Year, ATTRS('Month', !Month, 'nextperiod'), !Version, 'YTD Salary &amp; Bonus');
+</Feeders></XMLMemberFeeder><XMLMemberFeeder MemberId="[Compensation].[Monthly Salary &amp; Bonus]"><Feeders>['Compensation':{'Monthly Salary &amp; Bonus'}]=&gt;DB('_BAK_Compensation', !organization, !EmployeeList, !Year, !Month, !Version, 'YTD Salary &amp; Bonus');
+</Feeders></XMLMemberFeeder></XMLMemberCalculation></XMLDimensionCalculation></XMLCubeCalculation>

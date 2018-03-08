@@ -1,0 +1,7 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+['Label2']=S:IF(ELLEV('jobcode',!jobcode)=0,
+!jobcode|' '|DB('}ElementAttributes_jobcode',!jobcode,'Label'),DB('}ElementAttributes_jobcode',!jobcode,'Label'));

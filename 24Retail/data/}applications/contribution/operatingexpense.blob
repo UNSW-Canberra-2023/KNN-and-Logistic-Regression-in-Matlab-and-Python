@@ -1,0 +1,5 @@
+﻿FILE_FORMAT=100
+ENTRYNAME=OperatingExpense
+ENTRYTYPE=blob
+ENTRYREFERENCE=TM1:///blob/PUBLIC/.\}externals\OperatingExpense.xlsx_20140522200207.xlsx
+REMOVEBLOBONDELETE=Yes

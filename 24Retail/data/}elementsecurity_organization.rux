@@ -1,0 +1,5 @@
+﻿FORMAT==100
+#Region tp_planning_rule
+[]=S:IF(DB('}tp_intermediate_ElementSecurity}organization',!organization,!}Groups,'all_applications','Rights')@<>'',DB('}tp_intermediate_ElementSecurity}organization',!organization,!}Groups,'all_applications','Rights'),CONTINUE);
+
+#EndRegion

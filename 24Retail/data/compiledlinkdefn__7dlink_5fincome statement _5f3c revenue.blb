@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Revenue" TargetCube="Income Statement" FeedersCube="Revenue" LinkId="}Link_Income Statement _3C Revenue"><NumericRules>['Currency Calc':'Local', 'Account':{'5999','4999'}] = N:DB('Revenue', 
+    !organization, 'Channel Total', 'Product Total', !Month, 
+    !Version, ATTRS('Account', !Account, '}Map_}Link_Income Statement _3C Revenue'));
+</NumericRules><StringRules>['Currency Calc':'Local', 'Account':{'5999','4999'}] = S:DB('Revenue', 
+    !organization, 'Channel Total', 'Product Total', !Month, 
+    !Version, ATTRS('Account', !Account, '}Map_}Link_Income Statement _3C Revenue'));
+</StringRules><Feeders>['Channel':'Channel Total', 'Revenue':'Cost of Sales', 'product':'Product Total'] =&gt; DB('Income Statement', 
+    'Local', !organization, 'Y1', !Month, '5999', !Version);
+['Channel':'Channel Total', 'Revenue':'Cost of Sales', 'product':'Product Total'] =&gt; DB('Income Statement', 
+    'Local', !organization, 'Y2', !Month, '5999', !Version);
+['Channel':'Channel Total', 'Revenue':'Cost of Sales', 'product':'Product Total'] =&gt; DB('Income Statement', 
+    'Local', !organization, 'Y3', !Month, '5999', !Version);
+['Channel':'Channel Total', 'Revenue':'Gross Revenue', 'product':'Product Total'] =&gt; DB('Income Statement', 
+    'Local', !organization, 'Y1', !Month, '4999', !Version);
+['Channel':'Channel Total', 'Revenue':'Gross Revenue', 'product':'Product Total'] =&gt; DB('Income Statement', 
+    'Local', !organization, 'Y2', !Month, '4999', !Version);
+['Channel':'Channel Total', 'Revenue':'Gross Revenue', 'product':'Product Total'] =&gt; DB('Income Statement', 
+    'Local', !organization, 'Y3', !Month, '4999', !Version);
+</Feeders><XMLHiddenArtifacts DimensionId="Account"><HiddenAttributes><XMLHiddenAttributeTable Name="}Map_}Link_Income Statement _3C Revenue" Type="STRING"><Values member="5999" value="Cost of Sales"/><Values member="4999" value="Gross Revenue"/></XMLHiddenAttributeTable></HiddenAttributes></XMLHiddenArtifacts><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

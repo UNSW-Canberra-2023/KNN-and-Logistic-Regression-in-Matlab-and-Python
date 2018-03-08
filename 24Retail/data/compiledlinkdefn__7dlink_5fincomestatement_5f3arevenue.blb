@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Revenue" TargetCube="Income Statement" FeedersCube="}ElementAttributes_Version" LinkId="}Link_IncomeStatement_3ARevenue"><NumericRules>['Currency Calc':'Local', 'Account':{'5999','4999'}] = N:DB('Revenue', 
+    !organization, 'Channel Total', 'Product Total', !Month, 
+    !Year, ATTRS('Version', !Version, 'LinkVersion'), ATTRS('Account', 
+    !Account, '}Map_}Link_IncomeStatement_3ARevenue'));
+</NumericRules><StringRules>['Currency Calc':'Local', 'Account':{'5999','4999'}] = S:DB('Revenue', 
+    !organization, 'Channel Total', 'Product Total', !Month, 
+    !Year, ATTRS('Version', !Version, 'LinkVersion'), ATTRS('Account', 
+    !Account, '}Map_}Link_IncomeStatement_3ARevenue'));
+</StringRules><Feeders>['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '5999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '4999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '5999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '4999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '5999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '4999', !Version);
+</Feeders><XMLHiddenArtifacts DimensionId="Account"><HiddenAttributes><XMLHiddenAttributeTable Name="}Map_}Link_IncomeStatement_3ARevenue" Type="STRING"><Values member="5999" value="Cost of Sales"/><Values member="4999" value="Gross Revenue"/></XMLHiddenAttributeTable></HiddenAttributes></XMLHiddenArtifacts><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

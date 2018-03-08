@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCubeCalculation xmlns="http://www.ibm.com/dimensioncalculation.xsd" CubeId="_BAK_Spread Methods" Version="1.0"><XMLDimensionCalculation DimensionId="Spread Methods"/><XMLDimensionCalculation DimensionId="Year"/><XMLDimensionCalculation DimensionId="Month"/><XMLDimensionCalculation DimensionId="Version"><XMLMemberCalculation MemberId="[Version].[V3]"><NumericRules>###Version Calculation
+['Version':{'V3'}]=['Version':'Version 2']-['Version':'Version 1'];
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation><XMLMemberCalculation MemberId="[Version].[V4]"><NumericRules>###Version Calculation
+['Version':{'V4'}]=((['Version':'Version 2']-['Version':'Version 1'])\['Version':'Version 1'])*100;
+</NumericRules><StringRules></StringRules><ParentRules></ParentRules></XMLMemberCalculation></XMLDimensionCalculation></XMLCubeCalculation>

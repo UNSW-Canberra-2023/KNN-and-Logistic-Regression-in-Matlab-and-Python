@@ -1,0 +1,15 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+['}CaptionMeasures':'Value'] = S:
+  IF(
+    DB( '}CubeCaptions', !}Cultures, 'Input' ) @= '',
+    IF(
+      ATTRS( '}Cultures', !}Cultures, 'BaseCulture' ) @= '',
+      DB( '}CubeCaptions', 'Default', 'Input' ),
+      DB( '}CubeCaptions', ATTRS( '}Cultures', !}Cultures, 'BaseCulture' ), 'Value' )
+    ),
+    DB( '}CubeCaptions', !}Cultures, 'Input' )
+  );

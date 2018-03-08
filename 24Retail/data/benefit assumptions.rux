@@ -1,0 +1,37 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+UNDEFVALS;
+#EndRegion
+
+FEEDERS;
+
+
+#Region FEED The Income Statement for Payroll
+# Salary
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''), 'Local', 'Total Company', !Year, 'Year','6000', !Version);
+# Bonus
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''), 'Local', 'Total Company', !Year, 'Year','6005', !Version);
+# Benefits
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''), 'Local', 'Total Company', !Year, 'Year','6010', !Version);
+# Employer Taxes
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''), 'Local', 'Total Company', !Year, 'Year','6015', !Version);
+# Headcount
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''), 'Local', 'Total Company', !Year, 'Year','FTE', !Version);
+#EndRegion
+
+#Region FEED The Income Statement for Depreciation
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''),'Local', 'Total Company', !Year, 'Year', '6510', !Version);
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''),'Local', 'Total Company', !Year, 'Year', '6520', !Version);
+#EndRegion
+
+#Region FEED The Income Statement for Revenue
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''),'Local', 'Total Company', !Year, 'Year', '4999', !Version);
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''),'Local', 'Total Company', !Year, 'Year', '5999', !Version);
+#EndRegion
+
+#Region FEED the Income Statement for Line Item Detail
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''), 'Local', 'Total Company', !Year, 'Year', '6400', !Version);
+['Medicare']=>DB(IF(ATTRS('Version',!Version,'LinkVersion')@<>'','Income Statement',''), 'Local', 'Total Company', !Year, 'Year', '6410', !Version);
+#EndRegion

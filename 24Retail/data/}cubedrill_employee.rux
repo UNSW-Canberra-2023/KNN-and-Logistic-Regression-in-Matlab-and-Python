@@ -1,0 +1,8 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+['Job Type']=S:'JobTypeAssumption';
+
+['Job Code']=S:'JobCodeAssumption';

@@ -1,0 +1,32 @@
+﻿FORMAT==100
+#Region System
+FEEDSTRINGS;
+SKIPCHECK;
+#EndRegion
+#['Date Completed'] =s:
+#	IF( ELLEV('Task', !Task) =0,continue,'');
+	
+
+['Status'] = S:
+	IF( ELLEV('Task', !Task) =0,
+		continue,
+		IF(['Complete']>0,IF(['Complete'] = ['Active'],'Complete','In Progress'),'Not Started'));
+
+#['Active'] = N: 1;
+['Complete'] = N: IF( DB('Task Workflow',!Task,!organization,'Status') @= 'Complete',1,0);
+
+['Overdue'] = S:
+	IF( ELLEV('Task', !Task) =0,
+	
+	IF( ['days left'] < 1 &
+	DB('Task Workflow',!Task,!organization,'Status') @<> 'Complete'
+	 ,'Overdue','')
+	 ,'');
+
+['Days Left'] = N:DAYNO(DB('Task Workflow',!Task,!organization,'Due Date'))-DAYNo(TOday);
+
+#['system date'] = N:DAYNo(TOday);
+
+
+FEEDERS;
+['Active'] => ['Complete'];

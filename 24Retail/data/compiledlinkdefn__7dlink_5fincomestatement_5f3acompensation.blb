@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<XMLCompiledLink xmlns="http://www.ibm.com/compiledlink.xsd" SourceCube="Compensation" TargetCube="Income Statement" FeedersCube="}ElementAttributes_Version" LinkId="}Link_Incomestatement_3ACompensation"><NumericRules>['Currency Calc':'Local'] = N:IF(DIMIX('Compensation', !Account) &lt;&gt; 0, DB('Compensation', 
+    !organization, 'Total', !Month, !Year, ATTRS('Version', !Version, 
+    'LinkVersion'), !Account), CONTINUE);
+</NumericRules><StringRules>['Currency Calc':'Local'] = S:IF(DIMIX('Compensation', !Account) &lt;&gt; 0, DB('Compensation', 
+    !organization, 'Total', !Month, !Year, ATTRS('Version', !Version, 
+    'LinkVersion'), !Account), CONTINUE);
+</StringRules><Feeders>['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '4999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '5999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', 'GM', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '6099', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '6199', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '6299', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '6399', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '6499', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '6599', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', 'TE', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', 'NP', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', '6699', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', 'NPAA', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y1', 'Year', 'Statistics', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '4999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '5999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', 'GM', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '6099', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '6199', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '6299', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '6399', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '6499', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '6599', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', 'TE', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', 'NP', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', '6699', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', 'NPAA', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y2', 'Year', 'Statistics', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '4999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '5999', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', 'GM', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '6099', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '6199', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '6299', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '6399', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '6499', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '6599', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', 'TE', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', 'NP', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', '6699', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', 'NPAA', !Version);
+['}ElementAttributes_Version':'LinkVersion'] =&gt; DB('Income Statement', 
+    'Local', 'Total Company', 'Y3', 'Year', 'Statistics', !Version);
+</Feeders><virtualTargetArea/><virtualCondition></virtualCondition><virtualDBCall></virtualDBCall></XMLCompiledLink>

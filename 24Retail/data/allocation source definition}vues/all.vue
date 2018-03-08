@@ -1,0 +1,54 @@
+﻿389,100
+390,All
+370,0
+361,1
+362,1
+363,0
+364,0
+365,
+366,
+367,0
+376,0
+375,c:0.00
+374,2
+7,Version
+6,All Members
+7,Allocation Source Definition
+270,0
+274,Caption_Default
+275,38
+[Allocation Source Definition].MEMBERS
+281,0
+282,
+360,1
+7,Year
+6,All Members
+371,1
+7,Allocation List
+270,0
+274,Caption_Default
+275,25
+[Allocation List].MEMBERS
+281,0
+282,
+373,2
+1
+1
+372,0
+372,00
+384,0
+385,0
+377,4
+0
+0
+0
+0
+378,0
+382,255
+379,4
+0
+0
+0
+0
+11,20111203134814
+381,0
